@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { FaSpinner } from "react-icons/fa"; // Import spinner icon
 import BoxBg from "@/components/boxBg";
 
 const LoginSignup = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
   const router = useRouter();
   const [passVisible1, setPassVisible1] = useState(true);
   const [passVisible2, setPassVisible2] = useState(true);
@@ -33,6 +35,9 @@ const LoginSignup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Set loading to true when form is submitted
+    setErrorMessage(""); // Clear any previous error messages
+    
     const endpoint = isSignUp ? "/api/signup" : "/api/login";
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
@@ -40,11 +45,13 @@ const LoginSignup = () => {
     if (isSignUp) {
       if (!validatePassword(data.password)) {
         setErrorMessage("Password must be at least 8 characters long and contain both letters and numbers.");
+        setIsLoading(false); // Stop loading
         return;
       }
   
       if (data.password !== data.confirmPassword) {
         setErrorMessage("Passwords do not match.");
+        setIsLoading(false); // Stop loading
         return;
       }
     }
@@ -76,10 +83,12 @@ const LoginSignup = () => {
         }
       } else {
         setErrorMessage(result.message || "An error occurred. Please try again.");
+        setIsLoading(false); // Stop loading on error
       }
     } catch (err) {
       console.error("Error in login/signup process:", err);
       setErrorMessage("An error occurred. Please try again.");
+      setIsLoading(false); // Stop loading on error
     }
   };
   
@@ -118,6 +127,7 @@ const LoginSignup = () => {
                     placeholder="Enter your User Name"
                     className="w-full px-4 py-3 bg-gray-700 rounded-lg text-gray-300 outline-none focus:ring-2 focus:ring-blue-500"
                     required
+                    disabled={isLoading}
                   />
                 </div>
               )}
@@ -129,6 +139,7 @@ const LoginSignup = () => {
                   placeholder="Enter your email"
                   className="w-full px-4 py-3 bg-gray-700 rounded-lg text-gray-300 outline-none focus:ring-2 focus:ring-blue-500"
                   required
+                  disabled={isLoading}
                 />
               </div>
               <div className="relative">
@@ -139,8 +150,9 @@ const LoginSignup = () => {
                   placeholder="Enter your password"
                   className="w-full px-4 py-3 bg-gray-700 rounded-lg text-gray-300 outline-none focus:ring-2 focus:ring-blue-500"
                   required
+                  disabled={isLoading}
                 />
-                <span className='absolute right-2 top-7 z-1' onClick={toggleEye1}>
+                <span className='absolute right-2 top-7 z-1 cursor-pointer' onClick={toggleEye1}>
                   {!passVisible1 ? <IoEye className='text-3xl' /> : <IoEyeOff className='text-3xl' />}
                 </span>
               </div>
@@ -153,17 +165,28 @@ const LoginSignup = () => {
                     placeholder="Confirm your password"
                     className="w-full px-4 py-3 bg-gray-700 rounded-lg text-gray-300 outline-none focus:ring-2 focus:ring-blue-500"
                     required
+                    disabled={isLoading}
                   />
-                  <span className='absolute right-2 top-7 z-1' onClick={toggleEye2}>
+                  <span className='absolute right-2 top-7 z-1 cursor-pointer' onClick={toggleEye2}>
                     {!passVisible2 ? <IoEye className='text-3xl' /> : <IoEyeOff className='text-3xl' />}
                   </span>
                 </div>
               )}
               <button
                 type="submit"
-                className="w-full py-3 bg-blue-500 rounded-lg text-white hover:bg-blue-600 transition duration-200 shadow-md hover:shadow-lg"
+                disabled={isLoading}
+                className={`w-full py-3 rounded-lg text-white transition duration-200 shadow-md hover:shadow-lg flex items-center justify-center ${
+                  isLoading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+                }`}
               >
-                {isSignUp ? "Sign Up" : "Log In"}
+                {isLoading ? (
+                  <>
+                    <FaSpinner className="animate-spin mr-2" />
+                    {isSignUp ? "Signing Up..." : "Logging In..."}
+                  </>
+                ) : (
+                  isSignUp ? "Sign Up" : "Log In"
+                )}
               </button>
             </form>
             {errorMessage && <p className="text-red-500 mt-4 text-center">{errorMessage}</p>}
@@ -176,6 +199,7 @@ const LoginSignup = () => {
             <button
               onClick={toggleMode}
               className="text-blue-500 hover:underline ml-2 font-semibold"
+              disabled={isLoading}
             >
               {isSignUp ? "Log In" : "Sign Up"}
             </button>
