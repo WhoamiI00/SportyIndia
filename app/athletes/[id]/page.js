@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { CoachList, AchievementList, SportList, ActivityList, UploadList } from "@/components/staticList";
 import fetchImageData from "@/utils/fetchImageData";
+import Image from "next/image";
 
 const AthletePage = ({ params }) => {
     const { id } = params;
@@ -92,10 +93,12 @@ const AthletePage = ({ params }) => {
                 />
                 <div className="w-full md:w-3/4 bg-gray-800 p-6 rounded-lg shadow-lg">
                     <div className="flex items-center mb-6 relative">
-                        <img
+                        <Image
                             src={imageData[`${athlete.AthleteID}_${athlete.profilePicture}`] ? imageData[`${athlete.AthleteID}_${athlete.profilePicture}`] : '/logo.png'}
                             alt="Profile"
                             className="rounded-full w-24 h-24 border-2 border-gray-700"
+                            width={100}
+                            height={100}
                         />
                         <div className="ml-4">
                             <h1 className="text-2xl font-bold">{athlete.Name}</h1>

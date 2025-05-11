@@ -177,9 +177,9 @@ const Dashboard = () => {
     <div className="bg-gray-900 text-white">
       <Navbar />
 
-      <Carousel 
+      {/* <Carousel 
       events={event}
-      />
+      /> */}
 
       {/* Recent Videos Section */}
       <div className="px-6 py-10">

@@ -61,10 +61,9 @@ const SearchPage = ({ params }) => {
         const imageKey = `${athleteID}_${profilePicture}`;
         return imageData[imageKey] || '/logo.png';
     };
-
+    
     const handleLearnMore = (sportName) => {
         if (isClient) {
-            const router = useRouter();
             router.push(`/sports/${sportName}`);
         }
     };

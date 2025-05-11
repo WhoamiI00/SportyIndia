@@ -6,6 +6,7 @@ import { AiOutlineUserDelete } from "react-icons/ai";
 import { TiDelete } from "react-icons/ti";
 import { FcDeleteDatabase } from "react-icons/fc";
 import { useState,useEffect } from "react";
+import Image from "next/image";
 
 const ActivityList = ({ events, handleDelete, shouldModify }) => {
   const [imageData, setImageData] = useState({});
@@ -87,10 +88,12 @@ const ActivityList = ({ events, handleDelete, shouldModify }) => {
 
                 {event.AthleteImage ? (
                   imageData[event.AthleteImage] ? (
-                    <img
+                    <Image
                       src={imageData[event.AthleteImage]}
                       alt="Athlete Image"
                       className="w-24 h-24 rounded-lg absolute right-16 top-7 scale-[1.5]"
+                      width={100}
+                      height={100}
                     />
                   ) : (
                     <p>Loading Image...</p>

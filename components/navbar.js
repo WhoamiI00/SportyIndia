@@ -9,6 +9,7 @@ import { FiLogOut } from "react-icons/fi";
 import { MdFoodBank } from "react-icons/md";
 import { MdEventAvailable } from "react-icons/md";
 import { MdAdminPanelSettings } from "react-icons/md";
+import Image from "next/image";
 
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -104,10 +105,12 @@ export default function Navbar() {
 
       <div className="relative z-50">
         <button onClick={toggleDropdown} className="flex items-center space-x-2">
-          <img
+          <Image
             src={profileInfo ? `/images/${profileInfo}.png` : '/logo.png'}
             alt="Profile"
             className="w-10 h-10 rounded-full border-2 border-white"
+            height={100}
+            width={100}
           />
         </button>
         {showDropdown && (

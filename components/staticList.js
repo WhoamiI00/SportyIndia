@@ -1,5 +1,7 @@
 'use client';
 import { useState, useEffect } from "react";
+import Image from "next/image";
+
 const getEmbedUrl = (url) => {
   const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/[^\/]+\/|(?:v|e(?:mbed)?)\/|(?:v=|e(?:mbed)?\/))([a-zA-Z0-9_-]+)|youtu\.be\/([a-zA-Z0-9_-]+))/;
   const instagramRegex = /(?:https?:\/\/)?(?:www\.)?instagram\.com\/reel\/([A-Za-z0-9_-]+)/;
@@ -79,10 +81,12 @@ const ActivityList = ({ events = [] }) => {
 
                 {event.AthleteImage ? (
                   imageData[event.AthleteImage] ? (
-                    <img
+                    <Image
                       src={imageData[event.AthleteImage]}
                       alt="Athlete Image"
                       className="w-24 h-24 rounded-lg absolute right-7 top-7 scale-[1.5]"
+                      height={100}
+                      width={100}
                     />
                   ) : (
                     <p>Loading Image...</p>

@@ -12,6 +12,7 @@ import { RiDashboard2Line } from "react-icons/ri";
 import { IoIosAddCircle } from "react-icons/io";
 import fetchImageData from "@/utils/fetchImageData";
 import Loader from "@/components/Loader";
+import Image from "next/image";
 
 const User = () => {
   const [user, setUser] = useState(null);
@@ -353,10 +354,12 @@ const User = () => {
   
         <div className="w-full md:w-3/4 bg-gray-800 p-6 rounded-lg shadow-lg">
           <div className="flex items-center mb-6 relative">
-            <img
+            <Image
               src={ profileInfo ? `/images/${profileInfo}.png` : '/logo.png'}
               alt="Profile"
               className="rounded-full w-24 h-24 border-2 border-gray-700"
+              height={100}
+              width={100}
             />
             <IoIosAddCircle
               className="absolute text-3xl top-1 cursor-pointer"

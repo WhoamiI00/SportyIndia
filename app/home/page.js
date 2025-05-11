@@ -7,7 +7,7 @@ import Link from "next/link";
 import Loader from "@/components/Loader";
 import { useRouter } from "next/navigation";
 
-const sportyIndia = () => {
+const SportyIndia = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [userInfoExists, setUserInfoExists] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -60,7 +60,7 @@ const sportyIndia = () => {
     };
 
     fetchStats();
-  }, []);
+  }, [ImageData]);
 
 
   const toggleNav = () => {
@@ -282,4 +282,4 @@ const StatCard = ({ icon, number, description }) => {
   );
 };
 
-export default sportyIndia;
+export default SportyIndia;
