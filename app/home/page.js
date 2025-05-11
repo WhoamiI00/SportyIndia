@@ -31,36 +31,36 @@ const SportyIndia = () => {
   };
 
   useEffect(() => {
-    const userInfo = localStorage.getItem('loginInfo');
-    const storedSponsorLoginInfo = localStorage.getItem('sponsorLoginInfo');
+  const userInfo = localStorage.getItem('loginInfo');
+  const storedSponsorLoginInfo = localStorage.getItem('sponsorLoginInfo');
 
-    setUserInfoExists(!!userInfo);
-    if (storedSponsorLoginInfo) {
-      setIsSponsor(true);
-    }
+  setUserInfoExists(!!userInfo);
+  if (storedSponsorLoginInfo) {
+    setIsSponsor(true);
+  }
 
-    const fetchStats = async () => {
-      try {
-        const response = await fetch('/api/home');
-        const data = await response.json();
-        if (response.ok) {
-          setStats({
-            postsCount: data.postsCount,
-            athletesCount: data.athletesCount,
-            eventsCount: data.eventsCount,
-          });
-        } else {
-          console.error('Failed to fetch stats:', data);
-        }
-      } catch (error) {
-        console.error('Error fetching stats:', error);
-      } finally {
-        setLoading(false);
+  const fetchStats = async () => {
+    try {
+      const response = await fetch('/api/home');
+      const data = await response.json();
+      if (response.ok) {
+        setStats({
+          postsCount: data.postsCount,
+          athletesCount: data.athletesCount,
+          eventsCount: data.eventsCount,
+        });
+      } else {
+        console.error('Failed to fetch stats:', data);
       }
-    };
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchStats();
-  }, [ImageData]);
+  fetchStats();
+}, []); // Remove ImageData from here
 
 
   const toggleNav = () => {
