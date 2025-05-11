@@ -98,5 +98,4 @@ We welcome contributions to the Sporty India project! If you'd like to contribut
 
 Thank you for your contributions!
 
-## Team Members : Ankit, AdityaK, AdityaS, Ayushman, Bhanu
 github Link -> https://github.com/WhoamiI00/SportyIndia.git
